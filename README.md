@@ -91,3 +91,31 @@ Expected columns include company/vendor name (required), plus optional contact, 
 - Service provider fields (licenses, insurance expiration, preferred contact)
 - Dues workflow (monthly amount, due date, late fee policy, check reconciliation)
 - Reporting needs (delinquency, vendor payment history, annual budget export)
+
+## Git workflow (daily use)
+
+From the project root:
+
+```bash
+git status
+git pull
+```
+
+Stage and commit changes:
+
+```bash
+git add .
+git commit -m "Describe your change"
+```
+
+Push to GitHub:
+
+```bash
+git push
+```
+
+First push for a new branch:
+
+```bash
+git push -u origin <branch-name>
+```
