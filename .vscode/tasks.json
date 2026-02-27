@@ -45,6 +45,19 @@
 				"HOA workspace ready"
 			],
 			"isBackground": false
+		},
+		{
+			"label": "Backend: import owners (replace-all)",
+			"type": "shell",
+			"command": "${workspaceFolder}/backend/.venv/bin/python",
+			"args": [
+				"import_owners.py",
+				"../Jackson Court Resident Directory.xlsx",
+				"--replace-all"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}/backend"
+			}
 		}
 	]
 }

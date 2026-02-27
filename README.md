@@ -12,7 +12,7 @@ Starter workspace for an 11-unit condo HOA property management application.
 
 - HOA uses **Bluestone Bank** for finances
 - Dues are currently collected by **check**
-- Owners: up to 11 units
+- Owners: up to 11 units, with up to two owners per unit
 - Service providers: fewer than 20
 
 ## Quick start
@@ -51,7 +51,7 @@ Frontend app: `http://127.0.0.1:5173`
 
 ## Import owners from Excel
 
-If you have an Excel file with owner columns like `name`, `email`, `phone`, `unit`, run:
+If you have an Excel file with owner columns like `unit`, `owner1name`, `owner1email`, `owner1phone`, `owner1mailingaddress`, `owner2name`, `owner2email`, `owner2phone`, `owner2mailingaddress`, run:
 
 ```bash
 cd backend
@@ -65,7 +65,13 @@ Optional sheet name:
 python import_owners.py /absolute/path/to/owners.xlsx --sheet "Sheet1"
 ```
 
-The importer upserts by unit number (creates new owners or updates existing ones).
+The importer upserts by unit number (creates new records or fully updates existing records for that unit, including Owner 2 fields).
+
+To make the spreadsheet the source of truth and remove owners for units not present in the file:
+
+```bash
+python import_owners.py /absolute/path/to/owners.xlsx --replace-all
+```
 
 ## Import service providers from Excel
 

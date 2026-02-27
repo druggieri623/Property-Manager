@@ -2,7 +2,12 @@ from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import Session, select
 
-from .database import create_db_and_tables, engine, get_session
+from .database import (
+    create_db_and_tables,
+    engine,
+    get_session,
+    migrate_owner_schema_for_two_owners,
+)
 from .models import DuesPaymentMethod, HOASetting, Owner, ServiceProvider
 from .routers.owners import router as owners_router
 from .routers.service_providers import router as service_providers_router
@@ -22,17 +27,17 @@ app.add_middleware(
 
 
 DEFAULT_OWNERS = [
-    {"unit_number": "1", "full_name": "Owner Unit 1"},
-    {"unit_number": "2", "full_name": "Owner Unit 2"},
-    {"unit_number": "3", "full_name": "Owner Unit 3"},
-    {"unit_number": "4", "full_name": "Owner Unit 4"},
-    {"unit_number": "5", "full_name": "Owner Unit 5"},
-    {"unit_number": "6", "full_name": "Owner Unit 6"},
-    {"unit_number": "7", "full_name": "Owner Unit 7"},
-    {"unit_number": "8", "full_name": "Owner Unit 8"},
-    {"unit_number": "9", "full_name": "Owner Unit 9"},
-    {"unit_number": "10", "full_name": "Owner Unit 10"},
-    {"unit_number": "11", "full_name": "Owner Unit 11"},
+    {"unit_number": "1", "owner_one_full_name": "Owner Unit 1"},
+    {"unit_number": "2", "owner_one_full_name": "Owner Unit 2"},
+    {"unit_number": "3", "owner_one_full_name": "Owner Unit 3"},
+    {"unit_number": "4", "owner_one_full_name": "Owner Unit 4"},
+    {"unit_number": "5", "owner_one_full_name": "Owner Unit 5"},
+    {"unit_number": "6", "owner_one_full_name": "Owner Unit 6"},
+    {"unit_number": "7", "owner_one_full_name": "Owner Unit 7"},
+    {"unit_number": "8", "owner_one_full_name": "Owner Unit 8"},
+    {"unit_number": "9", "owner_one_full_name": "Owner Unit 9"},
+    {"unit_number": "10", "owner_one_full_name": "Owner Unit 10"},
+    {"unit_number": "11", "owner_one_full_name": "Owner Unit 11"},
 ]
 
 DEFAULT_SERVICE_PROVIDERS = [
@@ -70,7 +75,7 @@ def seed_initial_data() -> None:
                 session.add(
                     Owner(
                         unit_number=owner_seed["unit_number"],
-                        full_name=owner_seed["full_name"],
+                        owner_one_full_name=owner_seed["owner_one_full_name"],
                         dues_payment_method=DuesPaymentMethod.CHECK,
                     )
                 )
@@ -86,6 +91,7 @@ def seed_initial_data() -> None:
 @app.on_event("startup")
 def on_startup() -> None:
     create_db_and_tables()
+    migrate_owner_schema_for_two_owners()
     seed_initial_data()
 
 

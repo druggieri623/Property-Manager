@@ -15,19 +15,28 @@ async function parseApiError(res: Response, fallbackMessage: string) {
 export interface Owner {
   id: number;
   unit_number: string;
-  full_name: string;
-  email?: string;
-  phone?: string;
+  owner_one_full_name: string;
+  owner_one_email?: string;
+  owner_one_phone?: string;
+  owner_one_mailing_address?: string;
+  owner_two_full_name?: string;
+  owner_two_email?: string;
+  owner_two_phone?: string;
+  owner_two_mailing_address?: string;
   dues_payment_method: string;
   active: boolean;
 }
 
 export interface OwnerPayload {
   unit_number: string;
-  full_name: string;
-  email?: string;
-  phone?: string;
-  mailing_address?: string;
+  owner_one_full_name: string;
+  owner_one_email?: string;
+  owner_one_phone?: string;
+  owner_one_mailing_address?: string;
+  owner_two_full_name?: string;
+  owner_two_email?: string;
+  owner_two_phone?: string;
+  owner_two_mailing_address?: string;
   dues_payment_method: string;
   active: boolean;
 }

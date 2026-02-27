@@ -13,10 +13,14 @@ type OwnersPageProps = {
 
 const INITIAL_FORM: OwnerPayload = {
   unit_number: "",
-  full_name: "",
-  email: "",
-  phone: "",
-  mailing_address: "",
+  owner_one_full_name: "",
+  owner_one_email: "",
+  owner_one_phone: "",
+  owner_one_mailing_address: "",
+  owner_two_full_name: "",
+  owner_two_email: "",
+  owner_two_phone: "",
+  owner_two_mailing_address: "",
   dues_payment_method: "check",
   active: true
 };
@@ -36,9 +40,14 @@ export function OwnersPage({
     event.preventDefault();
     const payload: OwnerPayload = {
       ...form,
-      email: form.email?.trim() || undefined,
-      phone: form.phone?.trim() || undefined,
-      mailing_address: form.mailing_address?.trim() || undefined
+      owner_one_full_name: form.owner_one_full_name.trim(),
+      owner_one_email: form.owner_one_email?.trim() || undefined,
+      owner_one_phone: form.owner_one_phone?.trim() || undefined,
+      owner_one_mailing_address: form.owner_one_mailing_address?.trim() || undefined,
+      owner_two_full_name: form.owner_two_full_name?.trim() || undefined,
+      owner_two_email: form.owner_two_email?.trim() || undefined,
+      owner_two_phone: form.owner_two_phone?.trim() || undefined,
+      owner_two_mailing_address: form.owner_two_mailing_address?.trim() || undefined
     };
 
     try {
@@ -59,10 +68,14 @@ export function OwnersPage({
     setEditingId(owner.id);
     setForm({
       unit_number: owner.unit_number,
-      full_name: owner.full_name,
-      email: owner.email ?? "",
-      phone: owner.phone ?? "",
-      mailing_address: "",
+      owner_one_full_name: owner.owner_one_full_name,
+      owner_one_email: owner.owner_one_email ?? "",
+      owner_one_phone: owner.owner_one_phone ?? "",
+      owner_one_mailing_address: owner.owner_one_mailing_address ?? "",
+      owner_two_full_name: owner.owner_two_full_name ?? "",
+      owner_two_email: owner.owner_two_email ?? "",
+      owner_two_phone: owner.owner_two_phone ?? "",
+      owner_two_mailing_address: owner.owner_two_mailing_address ?? "",
       dues_payment_method: owner.dues_payment_method,
       active: owner.active
     });
@@ -103,25 +116,76 @@ export function OwnersPage({
           />
         </label>
         <label>
-          Full Name
+          Owner 1 Name
           <input
             required
-            value={form.full_name}
-            onChange={(event) => setForm({ ...form, full_name: event.target.value })}
+            value={form.owner_one_full_name}
+            onChange={(event) =>
+              setForm({ ...form, owner_one_full_name: event.target.value })
+            }
           />
         </label>
         <label>
-          Email
+          Owner 1 Email
           <input
-            value={form.email}
-            onChange={(event) => setForm({ ...form, email: event.target.value })}
+            value={form.owner_one_email}
+            onChange={(event) =>
+              setForm({ ...form, owner_one_email: event.target.value })
+            }
           />
         </label>
         <label>
-          Phone
+          Owner 1 Phone
           <input
-            value={form.phone}
-            onChange={(event) => setForm({ ...form, phone: event.target.value })}
+            value={form.owner_one_phone}
+            onChange={(event) =>
+              setForm({ ...form, owner_one_phone: event.target.value })
+            }
+          />
+        </label>
+        <label>
+          Owner 1 Mailing Address
+          <input
+            value={form.owner_one_mailing_address}
+            onChange={(event) =>
+              setForm({ ...form, owner_one_mailing_address: event.target.value })
+            }
+          />
+        </label>
+        <label>
+          Owner 2 Name
+          <input
+            value={form.owner_two_full_name}
+            onChange={(event) =>
+              setForm({ ...form, owner_two_full_name: event.target.value })
+            }
+          />
+        </label>
+        <label>
+          Owner 2 Email
+          <input
+            value={form.owner_two_email}
+            onChange={(event) =>
+              setForm({ ...form, owner_two_email: event.target.value })
+            }
+          />
+        </label>
+        <label>
+          Owner 2 Phone
+          <input
+            value={form.owner_two_phone}
+            onChange={(event) =>
+              setForm({ ...form, owner_two_phone: event.target.value })
+            }
+          />
+        </label>
+        <label>
+          Owner 2 Mailing Address
+          <input
+            value={form.owner_two_mailing_address}
+            onChange={(event) =>
+              setForm({ ...form, owner_two_mailing_address: event.target.value })
+            }
           />
         </label>
         <label>
@@ -160,9 +224,8 @@ export function OwnersPage({
         <thead>
           <tr>
             <th>Unit</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
+            <th>Owner 1</th>
+            <th>Owner 2</th>
             <th>Dues Method</th>
             <th>Actions</th>
           </tr>
@@ -171,9 +234,18 @@ export function OwnersPage({
           {owners.map((owner) => (
             <tr key={owner.id}>
               <td>{owner.unit_number}</td>
-              <td>{owner.full_name}</td>
-              <td>{owner.email ?? "-"}</td>
-              <td>{owner.phone ?? "-"}</td>
+              <td>
+                <div>{owner.owner_one_full_name}</div>
+                <div>{owner.owner_one_email ?? "-"}</div>
+                <div>{owner.owner_one_phone ?? "-"}</div>
+                <div>{owner.owner_one_mailing_address ?? "-"}</div>
+              </td>
+              <td>
+                <div>{owner.owner_two_full_name ?? "-"}</div>
+                <div>{owner.owner_two_email ?? "-"}</div>
+                <div>{owner.owner_two_phone ?? "-"}</div>
+                <div>{owner.owner_two_mailing_address ?? "-"}</div>
+              </td>
               <td>{owner.dues_payment_method}</td>
               <td>
                 <button type="button" onClick={() => startEdit(owner)} disabled={isSubmitting}>
