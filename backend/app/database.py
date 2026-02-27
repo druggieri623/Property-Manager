@@ -37,10 +37,16 @@ def migrate_owner_schema_for_two_owners() -> None:
                 cursor.execute(f"ALTER TABLE owner ADD COLUMN {column_name} TEXT")
 
         legacy_full_name_column = (
-            "full_name" if "full_name" in existing_column_names else "owner_one_full_name"
+            "full_name"
+            if "full_name" in existing_column_names
+            else "owner_one_full_name"
         )
-        legacy_email_column = "email" if "email" in existing_column_names else "owner_one_email"
-        legacy_phone_column = "phone" if "phone" in existing_column_names else "owner_one_phone"
+        legacy_email_column = (
+            "email" if "email" in existing_column_names else "owner_one_email"
+        )
+        legacy_phone_column = (
+            "phone" if "phone" in existing_column_names else "owner_one_phone"
+        )
         legacy_mailing_column = (
             "mailing_address"
             if "mailing_address" in existing_column_names
@@ -89,9 +95,15 @@ def migrate_owner_schema_for_two_owners() -> None:
             owner_two_email = row[8]
             owner_two_phone = row[9]
 
-            name_parts = [part.strip() for part in legacy_name.splitlines() if part.strip()]
-            email_parts = [part.strip() for part in legacy_email.splitlines() if part.strip()]
-            phone_parts = [part.strip() for part in legacy_phone.splitlines() if part.strip()]
+            name_parts = [
+                part.strip() for part in legacy_name.splitlines() if part.strip()
+            ]
+            email_parts = [
+                part.strip() for part in legacy_email.splitlines() if part.strip()
+            ]
+            phone_parts = [
+                part.strip() for part in legacy_phone.splitlines() if part.strip()
+            ]
 
             if len(name_parts) > 1 and not owner_two_name:
                 owner_two_name = name_parts[1]
