@@ -1,5 +1,5 @@
 {
-  "python.defaultInterpreterPath": "${workspaceFolder}/backend/.venv/bin/python",
+  "python.defaultInterpreterPath": "/Users/daveruggieri/Property-Manager/backend/.venv/bin/python",
   "python.analysis.typeCheckingMode": "basic",
   "editor.formatOnSave": true
 }
